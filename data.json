@@ -1,0 +1,9 @@
+{
+    "materias": [
+        { "nome": "Matemática", "peso": 2 },
+        { "nome": "Português", "peso": 3 },
+        { "nome": "História", "peso": 1 },
+        { "nome": "Geografia", "peso": 2 },
+        { "nome": "Ciências", "peso": 3 }
+    ]
+}

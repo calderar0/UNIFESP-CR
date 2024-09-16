@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de média</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Calculadora de CR UNIFESP</h1>
+    <p>Selecione as matérias e insira as notas para calcular seu CR.</p>
+    <br>
+    <label for="numMaterias">Número de matérias:</label>
+    <input type="number" id="numMaterias" min="1" max="50">
+    <p id="invalid" style="display: none;">Número de matérias inválido, mínimo de 1 e máximo de 50</p>
+    <input type="button" value="Gerar Seleção" onclick="generateMateriaSelection()">
+    <form id="materiaForm" style="display: none;">
+        <div id="materiasContainer"></div>
+        <br>
+        <input type="button" value="Salvar Matérias" onclick="saveMaterias(), esconderMat()">
+    </form>
+    <form id="mediaForm" style="display:none;">
+        <div id="inputsContainer"></div>
+        <br>
+        <input type="button" value="Calcular" onclick="calculateAverage()">
+    </form>
+    
+    <p id="result"></p>
+
+    <script src="main.js"></script>
+</body>
+</html>
