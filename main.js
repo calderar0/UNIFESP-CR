@@ -2,15 +2,18 @@ function generateMateriaSelection() {
     const numMaterias = document.getElementById('numMaterias').value;
     const container = document.getElementById('materiasContainer');
     container.innerHTML = ''; // Limpa os campos anteriores
-
+    
     if (numMaterias > 50 || numMaterias < 1 || isNaN(numMaterias)) {
         document.getElementById('invalid').style.display = 'block';
+        document.getElementById('materiaForm').style.display = 'none';
+        document.getElementById('mediaForm').style.display = 'none';
+        document.getElementById('resultado').style.display = 'none';
         return;
     }
     else {
         document.getElementById('invalid').style.display = 'none';
     }
-
+    
     arrumaLayout();
 
     fetch('data.json')
@@ -28,7 +31,7 @@ function generateMateriaSelection() {
                     select.appendChild(option);
                 });
                 div.innerHTML = `
-                    <label>Matéria: </label>
+                    <label>Matéria ${i+1}: </label>
                 `;
                 div.appendChild(select);
                 container.appendChild(div);
@@ -78,7 +81,9 @@ function calculateAverage() {
     }
 
     const mediaPonderada = somaNotasPesos / somaPesos;
-    document.getElementById('result').innerText = `Média Ponderada: ${mediaPonderada.toFixed(2)}`;
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('resultado').style.display = 'flex';
+    document.getElementById('result').innerText = `Média Ponderada: ${mediaPonderada.toFixed(3)}`;
 }
 
 function esconderMat(){
@@ -88,4 +93,6 @@ function esconderMat(){
 function arrumaLayout(){
     document.getElementById('mediaForm').style.display = 'none';
     document.getElementById('materiaForm').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('resultado').style.display = 'none';
 }

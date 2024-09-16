@@ -1,9 +1,21 @@
 {
     "materias": [
-        { "nome": "Matemática", "peso": 2 },
-        { "nome": "Português", "peso": 3 },
-        { "nome": "História", "peso": 1 },
-        { "nome": "Geografia", "peso": 2 },
-        { "nome": "Ciências", "peso": 3 }
+        { "nome": "Ciência, Tecnologia e Sociedade", "peso": 2 },
+        { "nome": "Fundamentos de Biologia Moderna", "peso": 4 },
+        { "nome": "Cálculo em Uma Variável", "peso": 6 },
+        { "nome": "Laboratório de Matemática", "peso": 2 },
+        { "nome": "Lógica de Programação", "peso": 4 },
+        { "nome": "Química Geral", "peso": 4 },
+        { "nome": "Algoritmos e Estruturas de Dados I", "peso": 4 },
+        { "nome": "Geometria Analítica", "peso": 4 },
+        { "nome": "Matemática Discreta", "peso": 4 },
+        { "nome": "Ciência, Tecnologia, Sociedade e Ambiente", "peso": 2 },
+        { "nome": "Fenômenos Mecânicos", "peso": 4 },
+        { "nome": "Cultura dos Jogos Digitais", "peso": 2 },
+        { "nome": "Algoritmos e Estruturas de Dados II", "peso": 4 },
+        { "nome": "Circuitos Digitais", "peso": 4 },
+        { "nome": "Probabilidade e Estatística", "peso": 4 },
+        { "nome": "Álgebra Linear", "peso": 4 },
+        { "nome": "Cálculo em Várias Variáveis", "peso": 4 }
     ]
 }
