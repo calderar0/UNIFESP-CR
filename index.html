@@ -1,34 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de média</title>
+    <title>Calculadora de CR UNIFESP</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div>
-        <h1>Calculadora de CR UNIFESP</h1>
-        <p>Selecione as matérias e insira as notas para calcular seu CR.</p>
+    <h1>Calculadora de CR UNIFESP</h1>
+
+    <div class="container">
+        <div class="form-container">
+            <h2 id="form-title">Adicionar Matéria</h2>
+            <form id="materia-form">
+                <input type="hidden" id="materia-id">
+                <div class="input-group">
+                    <label for="nome">Nome da Matéria</label>
+                    <input type="text" id="nome" required>
+                </div>
+                <div class="input-group">
+                    <label for="peso">Peso/Carga</label>
+                    <input type="number" id="peso" required>
+                </div>
+                <div class="input-group">
+                    <label for="nota">Nota</label>
+                    <input type="number" id="nota" step="0.1" required>
+                </div>
+                <button type="submit" class="but" id="form-button">Adicionar</button>
+                <button type="button" class="but" id="cancel-button" style="display: none;">Cancelar</button>
+            </form>
+        </div>
+
+        <div id="materias-list-container">
+            <h2>Minhas Matérias</h2>
+            <div id="materiasContainer"></div>
+        </div>
     </div>
-    <div class="numMat">
-        <label for="numMaterias">Número de matérias:</label>
-        <input type="number" id="numMaterias" min="1" max="50">
-        <p id="invalid" style="display: none;">Número de matérias inválido, mínimo de 1 e máximo de 50</p>
-        <input class="but" type="button" value="Gerar Seleção" onclick="generateMateriaSelection()">
-    </div>
-    <form id="materiaForm" style="display: none;">
-        <div id="materiasContainer"></div>
-        <br>
-        <input class="but but2" type="button" value="Salvar Matérias" onclick="saveMaterias(), esconderMat()">
-    </form>
-    <form id="mediaForm" style="display:none;">
-        <div id="inputsContainer"></div>
-        <br>
-        <input class="but but2" type="button" value="Calcular" onclick="calculateAverage()">
-    </form>
-    
-    <div id="resultado" style="display: none;">
+
+    <div id="resultado">
         <p id="result"></p>
     </div>
 

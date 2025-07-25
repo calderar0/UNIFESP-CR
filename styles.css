@@ -1,140 +1,133 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: Arial, sans-serif;
     background-color: #CAF0F8;
     color: #03045E;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    padding: 20px;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #023E8A;
 }
 
-.but {
-    height: 35px;
-    margin: 2.5px;
-    width: 150px;
-    background: #0077B6; /* Cor principal do botão */
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    cursor: pointer;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    font-family: Consolas, Courier New, monospace;
-    border: solid #03045E 1px; /* Cor da borda */
-    font-size: 16px;
-    color: #CAF0F8; /* Cor do texto */
-    -webkit-transition: 500ms;
-    transition: 500ms;
-    border-radius: 5px;
-    background: linear-gradient(145deg, #0077B6, #03045E);
-}
-  
-.but:hover {
-    -webkit-box-shadow: 1px 1px 13px #03045E, -1px -1px 13px #0077B6;
-    box-shadow: 1px 1px 5px #03045E, -1px -1px 13px #0077B6;
-    color: #d6d6d6;
-    -webkit-transition: 500ms;
-    transition: 500ms;
-}
-  
-.but:active {
-    -webkit-box-shadow: 1px 1px 13px #20232e, -1px -1px 33px #545b78;
-    box-shadow: 1px 1px 13px #20232e, -1px -1px 33px #545b78;
-    color: #d6d6d6;
-    -webkit-transition: 100ms;
-    transition: 100ms;
-  }
-
-form {
+.container {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
-    align-items: center;
+}
+
+.form-container, #materias-list-container {
     background-color: #90E0EF;
     padding: 20px;
-    margin-top: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 10px #03045E;
-    max-height: 450px; 
-    overflow-y: auto; 
-    width: 80%; 
+    box-shadow: 0 0 10px rgba(3, 4, 94, 0.2);
+    width: 100%;
+    max-width: 500px;
 }
 
-#materiasContainer, #inputsContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-    gap: 10px; 
-    width: 100%; 
-    justify-items: center; 
-    justify-content: center;
-    align-content: center; 
+#materia-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .input-group {
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 300px;
 }
 
 .input-group label {
     margin-bottom: 5px;
-    text-align: center; /* Centraliza o texto do rótulo */
+    font-weight: bold;
 }
 
-.input-group select, .input-group input[type="number"] {
-    width: 100%; /* Garante que o seletor e o campo de entrada ocupem toda a largura da caixa */
-    padding: 5px; /* Adiciona padding para melhorar a aparência */
-    margin-bottom: 10px; /* Espaçamento inferior para separar os elementos */
-    border: 1px solid #ccc; /* Adiciona uma borda para melhorar a aparência */
-    border-radius: 5px; /* Bordas arredondadas para os campos de entrada */
+.input-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
-.input-group input[type="button"] {
-    padding: 10px 20px; /* Padding para o botão */
-    background-color: #1D3557; /* Cor de fundo do botão */
-    color: #fff; /* Cor do texto do botão */
-    border: none; /* Remove a borda padrão */
-    border-radius: 5px; /* Bordas arredondadas para o botão */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-}
-
-.input-group input[type="button"]:hover {
-    background-color: #457B9D; /* Cor de fundo do botão ao passar o mouse */
-}
-
-.numMat{
-    display: flex;
+.but {
+    height: 40px;
+    width: 100%;
+    background: #0077B6;
     justify-content: center;
+    cursor: pointer;
     align-items: center;
+    font-family: 'Consolas', 'Courier New', monospace;
+    border: 1px solid #03045E;
+    font-size: 16px;
+    color: #CAF0F8;
+    transition: 500ms;
+    border-radius: 5px;
+}
+
+.but:hover {
+    box-shadow: 1px 1px 5px #03045E, -1px -1px 13px #0077B6;
+    color: #d6d6d6;
+}
+
+#cancel-button {
+    background-color: #d9534f;
+}
+
+#materiasContainer {
+    display: flex;
     flex-direction: column;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.materia-item {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.materia-info {
+    flex-grow: 1;
+}
+
+.materia-actions button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #0077B6;
+    color: white;
+}
+
+.materia-actions button.delete {
+    background-color: #d9534f;
 }
 
 #resultado {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #90E0EF;
-        padding: 20px;
-        margin-top: 10px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #03045E;
-        max-height: 450px; 
-        overflow-y: auto; 
-        width: 80%; 
+    background-color: #90E0EF;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(3, 4, 94, 0.2);
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
 }

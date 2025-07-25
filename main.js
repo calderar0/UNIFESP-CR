@@ -1,98 +1,120 @@
-function generateMateriaSelection() {
-    const numMaterias = document.getElementById('numMaterias').value;
-    const container = document.getElementById('materiasContainer');
-    container.innerHTML = ''; // Limpa os campos anteriores
-    
-    if (numMaterias > 50 || numMaterias < 1 || isNaN(numMaterias)) {
-        document.getElementById('invalid').style.display = 'block';
-        document.getElementById('materiaForm').style.display = 'none';
-        document.getElementById('mediaForm').style.display = 'none';
-        document.getElementById('resultado').style.display = 'none';
-        return;
-    }
-    else {
-        document.getElementById('invalid').style.display = 'none';
-    }
-    
-    arrumaLayout();
+document.addEventListener("DOMContentLoaded", () => {
+    let materias = [];
+    const materiaForm = document.getElementById('materia-form');
+    const materiasContainer = document.getElementById('materiasContainer');
+    const formTitle = document.getElementById('form-title');
+    const formButton = document.getElementById('form-button');
+    const cancelButton = document.getElementById('cancel-button');
+    const materiaIdInput = document.getElementById('materia-id');
 
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
-            for (let i = 0; i < numMaterias; i++) {
-                const div = document.createElement('div');
-                div.className = 'input-group';
-                const select = document.createElement('select');
-                select.name = 'materia';
-                data.materias.forEach(materia => {
-                    const option = document.createElement('option');
-                    option.value = JSON.stringify(materia);
-                    option.text = materia.nome;
-                    select.appendChild(option);
-                });
-                div.innerHTML = `
-                    <label>Matéria ${i+1}: </label>
-                `;
-                div.appendChild(select);
-                container.appendChild(div);
-            }
+            materias = data.materias.map((materia, index) => ({ ...materia, id: index }));
+            renderMaterias();
+            calcularMediaPonderada();
         })
         .catch(error => console.error('Erro ao carregar os dados:', error));
-}
 
-function saveMaterias() {
-    const materias = document.getElementsByName('materia');
-    const data = [];
+    function renderMaterias() {
+        materiasContainer.innerHTML = '';
+        materias.forEach(materia => {
+            const div = document.createElement('div');
+            div.className = 'materia-item';
+            div.dataset.id = materia.id;
 
-    for (let i = 0; i < materias.length; i++) {
-        const materia = JSON.parse(materias[i].value);
-        data.push(materia);
+            div.innerHTML = `
+                <div class="materia-info">
+                    <strong>${materia.nome}</strong><br>
+                    <span>Peso: ${materia.peso} | Nota: ${materia.nota}</span>
+                </div>
+                <div class="materia-actions">
+                    <button class="edit">Editar</button>
+                    <button class="delete">Remover</button>
+                </div>
+            `;
+            materiasContainer.appendChild(div);
+        });
     }
 
-    generateNotaFields(data);
-}
+    function calcularMediaPonderada() {
+        if (materias.length === 0) {
+            document.getElementById('resultado').style.display = 'none';
+            return;
+        }
 
-function generateNotaFields(data) {
-    const container = document.getElementById('inputsContainer');
-    container.innerHTML = ''; // Limpa os campos anteriores
+        let somaNotasPesos = 0;
+        let somaPesos = 0;
 
-    data.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'input-group';
-        div.innerHTML = `
-            <label>${item.nome}: <input type="number" name="nota" step="0.01" data-peso="${item.peso}"></label>
-        `;
-        container.appendChild(div);
+        materias.forEach(materia => {
+            somaNotasPesos += materia.nota * materia.peso;
+            somaPesos += materia.peso;
+        });
+
+        const mediaPonderada = somaPesos > 0 ? somaNotasPesos / somaPesos : 0;
+        exibirResultado(mediaPonderada);
+    }
+
+    function exibirResultado(media) {
+        document.getElementById('resultado').style.display = 'block';
+        document.getElementById('result').innerText = `Média Ponderada: ${media.toFixed(3)}`;
+    }
+
+    materiaForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = materiaIdInput.value;
+        const nome = document.getElementById('nome').value;
+        const peso = parseFloat(document.getElementById('peso').value);
+        const nota = parseFloat(document.getElementById('nota').value);
+
+        if (id) {
+            // Update
+            const index = materias.findIndex(m => m.id == id);
+            if (index !== -1) {
+                materias[index] = { ...materias[index], nome, peso, nota };
+            }
+        } else {
+            // Add new
+            const newId = materias.length > 0 ? Math.max(...materias.map(m => m.id)) + 1 : 0;
+            materias.push({ id: newId, nome, peso, nota });
+        }
+
+        resetForm();
+        renderMaterias();
+        calcularMediaPonderada();
+        // Here you would ideally send the updated 'materias' array to the server to update data.json
     });
 
-    document.getElementById('mediaForm').style.display = 'block';
-}
+    materiasContainer.addEventListener('click', (e) => {
+        const id = e.target.closest('.materia-item').dataset.id;
+        if (e.target.classList.contains('delete')) {
+            materias = materias.filter(m => m.id != id);
+            renderMaterias();
+            calcularMediaPonderada();
+        } else if (e.target.classList.contains('edit')) {
+            const materia = materias.find(m => m.id == id);
+            if (materia) {
+                document.getElementById('materia-id').value = materia.id;
+                document.getElementById('nome').value = materia.nome;
+                document.getElementById('peso').value = materia.peso;
+                document.getElementById('nota').value = materia.nota;
 
-function calculateAverage() {
-    const notas = document.getElementsByName('nota');
-    let somaNotasPesos = 0;
-    let somaPesos = 0;
+                formTitle.innerText = 'Editar Matéria';
+                formButton.innerText = 'Atualizar';
+                cancelButton.style.display = 'inline-block';
+            }
+        }
+    });
 
-    for (let i = 0; i < notas.length; i++) {
-        const nota = parseFloat(notas[i].value);
-        const peso = parseFloat(notas[i].getAttribute('data-peso'));
-        somaNotasPesos += nota * peso;
-        somaPesos += peso;
+    cancelButton.addEventListener('click', () => {
+        resetForm();
+    });
+
+    function resetForm() {
+        materiaForm.reset();
+        materiaIdInput.value = '';
+        formTitle.innerText = 'Adicionar Matéria';
+        formButton.innerText = 'Adicionar';
+        cancelButton.style.display = 'none';
     }
-
-    const mediaPonderada = somaNotasPesos / somaPesos;
-    document.getElementById('result').style.display = 'block';
-    document.getElementById('resultado').style.display = 'flex';
-    document.getElementById('result').innerText = `Média Ponderada: ${mediaPonderada.toFixed(3)}`;
-}
-
-function esconderMat(){
-    document.getElementById('materiaForm').style.display = 'none';
-}
-
-function arrumaLayout(){
-    document.getElementById('mediaForm').style.display = 'none';
-    document.getElementById('materiaForm').style.display = 'block';
-    document.getElementById('result').style.display = 'none';
-    document.getElementById('resultado').style.display = 'none';
-}
+});
