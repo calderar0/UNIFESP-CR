@@ -25,7 +25,7 @@
         { "nome": "Séries e Equações Diferenciais e Ordinárias", "peso": 4 , "nota": 7.3},
         { "nome": "Arquitetura e organização de computadores", "peso": 4 , "nota": 8},
         { "nome": "Bioética e Biossegurança", "peso": 2 , "nota": 10},
-        { "nome": "Aspectos de Implementação de Banco de Dados", "peso": 4 , "nota": 9.0},
+        { "nome": "Aspectos de Implementação de Banco de Dados", "peso": 4 , "nota": 9.9},
         { "nome": "Projeto Orientado a Objeto", "peso": 4 , "nota": 8.5},
         { "nome": "Linguagens Formais e Autômatos", "peso": 4 , "nota": 8.1},
         { "nome": "Sistemas Operacionais", "peso": 4 , "nota": 7.4},

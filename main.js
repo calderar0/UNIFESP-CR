@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cancelButton = document.getElementById('cancel-button');
     const materiaIdInput = document.getElementById('materia-id');
 
-    fetch('data.json')
+    fetch('dataBia.json')
         .then(response => response.json())
         .then(data => {
             materias = data.materias.map((materia, index) => ({ ...materia, id: index }));
@@ -68,13 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const nota = parseFloat(document.getElementById('nota').value);
 
         if (id) {
-            // Update
             const index = materias.findIndex(m => m.id == id);
             if (index !== -1) {
                 materias[index] = { ...materias[index], nome, peso, nota };
             }
         } else {
-            // Add new
             const newId = materias.length > 0 ? Math.max(...materias.map(m => m.id)) + 1 : 0;
             materias.push({ id: newId, nome, peso, nota });
         }
@@ -82,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
         resetForm();
         renderMaterias();
         calcularMediaPonderada();
-        // Here you would ideally send the updated 'materias' array to the server to update data.json
     });
 
     materiasContainer.addEventListener('click', (e) => {
